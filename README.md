@@ -1,2 +1,0 @@
-# ReactTest
-Created with CodeSandbox
