@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-// import md5 from "md5";
+import md5 from "md5";
 import EmailValidator from "./email-validator";
 import "../styles/app.css";
 
@@ -67,7 +67,7 @@ class Avatar extends React.Component {
     var avatarImgSrc = `https://api.adorable.io/avatars/55/${login}.png`;
 
     if (new EmailValidator().validateEmail(login)) {
-      const emailHash = login.trim();
+      const emailHash = md5(login.trim());
       avatarImgSrc = `https://s.gravatar.com/avatar/${emailHash}?s=80&amp;r=g`;
     }
 
