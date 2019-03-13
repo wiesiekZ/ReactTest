@@ -17,12 +17,25 @@ class AppHeader extends React.Component {
             />
             List kontaktów
           </a>
-          <div class="header item">
-            <button class="ui button">Dodaj</button>
-          </div>
+          <HeaderButton />
         </nav>
       </header>
     );
+  }
+}
+
+class HeaderButton extends React.Component {
+  render() {
+    return (
+      <div class="header item">
+        <button class="ui button" onClick={this.onClickHandler}>
+          Dodaj
+        </button>
+      </div>
+    );
+  }
+  onClickHandler() {
+    alert("kliknieto!!");
   }
 }
 
@@ -76,8 +89,19 @@ class Avatar extends React.Component {
         alt="lena avatar"
         src={avatarImgSrc}
         className="ui mini rounded image"
+        onClick={this.clickHandler}
+        onMouseLeave={this.mouseHandler}
       />
     );
+  }
+
+  clickHandler(e) {
+    console.log("Klick");
+    console.log(e.target.value);
+  }
+
+  mouseHandler() {
+    console.log("musnięto");
   }
 }
 
