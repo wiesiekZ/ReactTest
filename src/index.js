@@ -5,6 +5,14 @@ import EmailValidator from "./email-validator";
 import MyCounter from "./counter";
 import "../styles/app.css";
 
+const allUsers = [
+  { login: "Login1", user: "Lena", department: "JavaScript Dveloper" },
+  { login: "Login2", user: "Michal", department: "HR" },
+  { login: "scott@hanselman.com", user: "Rick", department: "QA" },
+  { login: "Login3", user: "Marta", department: "JS" },
+  { login: "wieslaw@pass.com", user: "Wieslaw", department: "Developer" }
+];
+
 class AppHeader extends React.Component {
   render() {
     return (
@@ -42,20 +50,17 @@ class HeaderButton extends React.Component {
 
 class ContactList extends React.Component {
   render() {
+    var list = this.props.list;
+
     return (
       <ul class="ui relaxed divided list selection">
-        <ContactItem
-          login="typeofweb1"
-          name="Lena"
-          department="JavaScript Developer"
-        />
-        <ContactItem
-          login="typeofweb2"
-          name="Brian"
-          department="Human Resources"
-        />
-        <ContactItem login="typeofweb3" name="Rick" department="QA" />
-        <ContactItem login="scott@hanselman.com" name="Rick" department="QA" />
+        {list.map(list => (
+          <ContactItem
+            login={list.login}
+            name={list.user}
+            department={list.department}
+          />
+        ))}
       </ul>
     );
   }
@@ -107,12 +112,36 @@ class Avatar extends React.Component {
 }
 
 class App extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      filteredUsers: allUsers
+    };
+  }
+
+  filterUsers(e) {
+    const text = e.currentTarget.value;
+    const filteredUsers = this.getFilteredUsersForText(text);
+
+    this.setState({
+      filteredUsers
+    });
+  }
+
+  getFilteredUsersForText(text) {
+    return allUsers.filter(user =>
+      user.user.toLowerCase().includes(text.toLowerCase())
+    );
+  }
+
   render() {
     return (
       <div>
         <AppHeader />
         <main class="ui main text container">
-          <ContactList />
+          <input onInput={this.filterUsers.bind(this)} />
+          <ContactList list={this.state.filteredUsers} />
           <MyCounter />
         </main>
       </div>
